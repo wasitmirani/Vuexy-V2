@@ -26,7 +26,7 @@ class HelperComponent
                         "Overview",
                         null,
                         "dashboard-overview-view",
-                        "/dashboard",
+                        "/dashboard/overview",
                     ),
                 ],
             ],

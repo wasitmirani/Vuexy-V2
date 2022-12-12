@@ -18,9 +18,9 @@ Route::get('/', function () {
 });
 
 
-Route::get('/dashboard', function () {
+Route::get('/{any?}', function () {
     return view('layouts.backend.master');
-});
+})->where('any', '[\/\w\.-]*');
 // ->middleware(['auth'])->name('dashboard');
 
 require __DIR__.'/auth.php';

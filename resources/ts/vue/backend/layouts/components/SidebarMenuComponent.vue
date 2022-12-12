@@ -72,10 +72,10 @@ export default {
             window.location.href = window.location.origin + "/logout";
         },
         isAllowed(value) {
-            if (permissions.includes(value))
+            // if (permissions.includes(value))
                 return true;
-            else
-                return true;
+        //     else
+        //         return true;
         },
         getClass(item) {
             if (item?.heading) {

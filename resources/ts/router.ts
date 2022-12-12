@@ -1,36 +1,54 @@
-// require('./helper');
-import { createRouter, createWebHistory } from 'vue-router'
+import {createRouter,createWebHistory,RouteRecordRaw,} from "vue-router";
 
-
-
-let getComponent=(file_name:String)=>{
-    const route=import(`./vue/backend/pages/${file_name}Component.vue`);
+console.log('loca', window.location.href)
+let getComponent=(file_name:string)=>{
+    const route= import(`./vue/backend/pages/${file_name}Component.vue`);
     return route;
-}
+  }
+const prefix="/portal";
+let setRoute=(url:string,name:string,path:string)=>{
+    return {
+      path: prefix+url,
+      name: name,
+      component:()=> getComponent(path),
 
+    }
+  }
 
-
-const per_fix="/portal";
-const routes = [
-    // { path: "/:catchAll(.*)",
-    // name: "NotFound",
-    // component: () => getComponent("error/404") },
-    // { path: "/unauthorized/user", component: () => setComponent("error/401"),name: "unauthorized" },
+  const routes =[
     {
-        path: "/portal/dashboard",
-        redirect: { name: 'master_dashboard' }
+        path: "/dashboard",
+        redirect: { name: 'dashboard' }
     },
     {
-        path: `${per_fix}/dashboard`, component:()=>getComponent("dashboard/MasterDashboard"), name: "master_dashboard",
-        meta: { permissions: "dashboard-view" }
+        path: "/",
+        redirect: { name: 'dashboard' }
     },
+    setRoute('/:catchAll(.*)','404','error/404'),
+    setRoute('/dashboard/overview','dashboard','dashboard/Dashboard'),
 
 
 
 ];
 
-
-export default createRouter({
+const router = createRouter({
     history: createWebHistory(),
-    routes
-})
+    routes,
+    linkActiveClass: "active",
+    linkExactActiveClass: "exact-active",
+    scrollBehavior(to, from, savedPosition) {
+        if (to.hash) {
+            return {
+                selector: to.hash,
+                behavior: 'smooth',
+            }
+        }
+    },
+});
+
+router.beforeEach((to, from, next) => {
+
+    next()
+
+  });
+export default router;
