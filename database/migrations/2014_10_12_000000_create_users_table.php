@@ -23,9 +23,18 @@ return new class extends Migration
             $table->string('token')->nullable();
             $table->string('thumbnail')->nullable();
             $table->longText('bio')->nullable();
+            $table->string('country')->nullable();
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('state')->nullable();
+            $table->string('zip')->nullable();
+            $table->string('timezone')->nullable();
+            $table->string('currency')->nullable();
+            $table->string('language')->default('en');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
